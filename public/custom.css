@@ -1,0 +1,48 @@
+:root {
+    --light-green: "#628B35";
+    --very-dark-green: "#1C2628";
+}
+
+* {
+    color: var(--very-dark-green);
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.hero-container {
+  background-image: url("./hero_img/hero.png");
+  background-size: cover;
+  background-position: right;
+}
+
+/* Divider */
+
+.custom-shape-divider-bottom-1733039168 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1733039168 svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 115px;
+}
+
+.custom-shape-divider-bottom-1733039168 .shape-fill {
+  fill: #fffdf5;
+}
+
+/* Authentication */
+.grid-bg {
+  background-size: 39px 39px;
+  background-image: linear-gradient(to right, rgba(98, 139, 53, 0.5) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(98, 139, 53, 0.5) 1px, transparent 1px);
+}
