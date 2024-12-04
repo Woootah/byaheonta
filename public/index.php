@@ -1,15 +1,24 @@
 <?php
-    include "./config.php";
-    session_start();
+include "./config.php";
+session_start();
 
 
-        $email = isset($_COOKIE['email']) ? $_COOKIE['email'] : '';
-        $profile = $conn->query("SELECT * FROM users WHERE email = '$email'")->fetch_assoc();
+$email = isset($_COOKIE['email']) ? $_COOKIE['email'] : '';
+$profile = $conn->query("SELECT * FROM users WHERE email = '$email'")->fetch_assoc();
 
+$reviews = $conn->query("SELECT * FROM reviews ORDER BY review_timestamp")->fetch_all(MYSQLI_ASSOC);
 
-    if (isset($_POST['logout'])) {
-        session_destroy();
-    }
+if (isset($_POST['logout'])) {
+    session_destroy();
+}
+
+if(isset($_POST["review-comment"])){
+    $message = $_POST["review-comment"];
+    $rating = $_POST["rating"];
+    $timestamp = date("Y-m-d h:i:sa");
+
+    $review = $conn->query("INSERT INTO `reviews`(`email`, `rating`, `comment`, `review_timestamp`) VALUES ('$email','$rating','$message','$timestamp')");
+}
 
 ?>
 <!DOCTYPE html>
@@ -42,7 +51,7 @@
                     <!-- Profile Icon -->
                     <div id="profileImg">
 
-                        <img src="hero_img/uruta.jpg" alt="profile" class="profile-icon w-12 h-12 rounded-full object-cover">
+                        <img src="" alt="profile" class="profile-icon w-12 h-12 rounded-full object-cover">
 
                         <div id="options" style="display:none;" class="absolute top-24 right-6 w-[120px] h-[100px] bg-cwhite text-sdgreen items-center justify-center flex-col rounded-lg">
                             <div class="arrow w-4 h-4 rotate-45 bg-cwhite absolute -top-2 right-6"></div>
@@ -116,9 +125,50 @@
         </div>
     </div>
 
-    <div class="test-section h-screen w-full bg-sdgreen">
-        test
+    <!-- REVIEWS -->
+    <div id="reviews" class="test-section h-auto w-full bg-sdgreen mt-40  text-cwhite py-24">
+        <div class="header-title reviews-header text-center overflow-hidden py-2">
+            <p class="font-font1 text-3xl md:text-6xl">What our users say about us</p>
+        </div>
+
+        <div class="slider md:h-[200px] h-[150px] mt-24 px-4 flex overflow-hidden" style="mask-image: linear-gradient(to right, transparent, #1C2628 10% 90%, transparent);">
+            <div class="list flex relative gap-10 animate-loop-scroll">
+
+            </div>
+        </div>
+
+        <div class="review-form w-[80%] grid grid-cols-2 grid-rows-2 mx-auto my-32">
+            <div class="hero-text col-span-2 row-span-1 md:row-span-2 md:col-span-1 w-full h-full flex justify-center flex-col items-center text-center md:text-left">
+                <div class="overflow-hidden py-2">
+                    <p class="review-hero-text font-font1 text-6xl md:text-7xl">Let us know</p>
+                </div>
+                <div class="overflow-hidden py-2">
+                    <p class="review-hero-text font-font1 text-6xl md:text-7xl">your thoughts.</p>
+                </div>
+            </div>
+            <form class="col-span-2 row-span-1 md:row-span-2 md:col-span-1 w-full h-full flex justify-center  items-center flex-col">
+                    <p>Commenting as <span class="review-email text-lgreen"></span></p>
+
+                    <div class="rating-box">
+                        <div class="rating-container">
+                            <input type="radio" class="rating" name="rating" value="5" id="star-5"> <label for="star-5">&#9733;</label>
+
+                            <input type="radio" class="rating" name="rating" value="4" id="star-4"> <label for="star-4">&#9733;</label>
+
+                            <input type="radio" class="rating" name="rating" value="3" id="star-3"> <label for="star-3">&#9733;</label>
+
+                            <input type="radio" class="rating" name="rating" value="2" id="star-2"> <label for="star-2">&#9733;</label>
+
+                            <input type="radio" class="rating" name="rating" value="1" id="star-1"> <label for="star-1">&#9733;</label>
+                        </div>
+                    </div>
+
+                <textarea name="review-comment" class="comment border border-lgreen resize-none w-[400px] md:w-[500px] h-[200px] bg-transparent text-cwhite p-4 rounded-lg outline-none"></textarea>
+                <input type="submit" id="review-submit" value="Submit" name="submit" class="px-8 py-2 bg-lgreen rounded-full mt-4 border border-lgreen hover:bg-transparent ctransition" >
+            </form>
+        </div>
     </div>
+    <div class="test h-screen w-full bg-lgreen"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
@@ -148,11 +198,12 @@
                 $('#options').removeClass('hidden');
                 $('#loginButton').addClass('hidden');
 
-                // Profile Iconcode($profile); ?>;
-                if(profile.profile){
+                // Profile Icon
+                let profile = <?php echo json_encode($profile); ?>;
+                if (profile.profile) {
                     $(".profile-icon").attr('src', `../uploads/${profile.profile}`);
-                }
-                else{
+                    $(".review-email").html(profile.email);
+                } else {
                     $(".profile-icon").attr('src', "hero_img/blank.jpg");
                 }
             } else {
@@ -213,7 +264,6 @@
                 let textRight = ((index + 1) % 2 == 0) ? 'md:text-right' : 'md:text-left';
                 html += `
                     <div class="spot flex flex-col md:flex-row justify-center items-center ${right} w-full md:space-x-[2rem] md:space-x-reverse">
-
                         <div class="spot-img">
                             <div class="img-wrapper w-[400px] h-[400px] md:w-[500px] md:h-[600px] overflow-hidden">
                                 <img src="hero_img/${spot.image}" alt="${spot.title}" style="clip-path: inset(0 0 0 0);" class="overflow-clip w-full h-full object-cover">
@@ -287,7 +337,119 @@
                 })
             }))
 
+            // Reviews
+            let reviews = <?php echo json_encode($reviews); ?>;
+            let reviews_html = "";
 
+            (async function fetchReviews() {
+                for (review of reviews) {
+                    await $.ajax({
+                        url: "getReviewProfile.php",
+                        method: 'POST',
+                        data: {
+                            email: review.email
+                        },
+                        success: function(res) {
+                            let profile = res ? `../uploads/${res}` : "hero_img/blank.jpg";
+                            reviews_html += `
+                    <div class="item grid grid-cols-3 h-[150px] md:h-[200px] md:w-[450px] w-[350px] bg-cwhite rounded-lg p-4 relative overflow-hidden flex-shrink-0">
+                        <div class="watermark absolute -bottom-10 right-0 w-[200px] z-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290 290" fill="#F8F5FF">
+                                <path d="M22.12 145v97.65h97.65V145H70.95c0-26.92 21.9-48.82 48.82-48.82V47.35c-53.93 0-97.65 43.72-97.65 97.65zm245.76-48.82V47.35c-53.93 0-97.65 43.72-97.65 97.65v97.65h97.65V145h-48.82c-.01-26.92 21.89-48.82 48.82-48.82z"></path>
+                            </svg>
+                        </div>
+                        <div class="review_profile col-span-1 flex justify-center items-center z-10">
+                            <div class="w-[100px] h-[100px] overflow-hidden rounded-full">
+                                <img src="${profile}" alt="review" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <div class="review_text col-span-2 text-sdgreen px-4 py-4 md:py-8 z-10">
+                            <p class="font-bold font-sm">${review.email}</p>
+                            <p class="mt-2">"${review.comment}"</p>
+                        </div>
+                    </div>
+                `;
+                        }
+                    });
+                }
+                $(".slider .list").html(reviews_html + reviews_html);
+            })();
+
+            gsap.from(".slider", 1, {
+                scrollTrigger: {
+                    trigger: ".reviews-header",
+                    start: "center bottom",
+                    end: "bottom center",
+                    scrub: true,
+                },
+                y: 140,
+                opacity: 0,
+                ease: "power3.inOut",
+            })
+
+            gsap.from(".review-form", 1, {
+                scrollTrigger: {
+                    trigger: ".review-form",
+                    start: "top bottom",
+                    end: "bottom center",
+                    scrub: true,
+                },
+                y: 140,
+                opacity: 0,
+                ease: "power3.inOut",
+            })
+
+            $(".review-hero-text").each(function(){
+                let review_hero_split = new SplitType($(this));
+                gsap.from(review_hero_split.chars, 1, {
+                    scrollTrigger: {
+                        trigger: $(this),
+                        start: "top bottom",
+                        end: "bottom center",
+                        scrub: true,
+                    },
+                    y: 140,
+                    stagger: 0.02,
+                    ease: "power3.inOut",
+
+                })
+            })
+
+            // star
+            let reviewValue = 0;
+
+            $(".rating").each(function () {
+                $(this).on("change", function () {
+                    reviewValue = $(this).val();
+                });
+            });
+
+
+            $("#review-submit").on("click", function (e){
+                if(!email){
+                    window.location.replace("http://localhost/byaheonta/public/login.php");
+                }
+
+                var request = $.ajax({
+                    url: "review.php",
+                    method: "POST",
+                    data: {
+                        email : email,
+                        rating : reviewValue,
+                        message : $(".comment").val()
+                    },
+                    dataType: "html"
+                });
+
+                request.done(function( msg ) {
+                    alert(msg);
+                });
+
+                request.fail(function( jqXHR, textStatus ) {
+                alert( "Request failed: " + textStatus );
+                });
+
+            })
         })
     </script>
 </body>

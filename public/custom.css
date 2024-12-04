@@ -46,3 +46,27 @@
   background-image: linear-gradient(to right, rgba(98, 139, 53, 0.5) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(98, 139, 53, 0.5) 1px, transparent 1px);
 }
+
+/*
+    RATING
+*/
+.rating-box {
+    display: inline-block;
+    .rating-container {
+      direction: rtl !important;
+      label {
+        display: inline-block;
+        margin: 15px 0;
+        color: #d4d4d4;
+        cursor: pointer;
+        font-size: 50px;
+        transition: color 0.2s;
+      }
+      input {
+        display: none;
+      }
+      label:hover, label:hover ~ label, input:checked ~ label  {
+        color: gold;
+      }
+    }
+  }

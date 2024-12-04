@@ -22,6 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
   let exitNav = document.querySelector(".exit");
   let profile = document.querySelector("#profileImg");
   let options = document.querySelector("#options");
+  let slider = document.querySelector(".slider");
+
+  gsap.registerPlugin(ScrollTrigger);
 
   // Home Animations
 
@@ -97,4 +100,5 @@ document.addEventListener("DOMContentLoaded", function () {
       options.style.display = "none";
     }
   });
+
 });
