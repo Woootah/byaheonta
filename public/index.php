@@ -1,3 +1,17 @@
+<?php
+    include "./config.php";
+    session_start();
+
+
+        $email = isset($_COOKIE['email']) ? $_COOKIE['email'] : '';
+        $profile = $conn->query("SELECT * FROM users WHERE email = '$email'")->fetch_assoc();
+
+
+    if (isset($_POST['logout'])) {
+        session_destroy();
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,6 +21,7 @@
     <title>ByaheOnTa</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./custom.css">
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.17/dist/lenis.css">
 </head>
 
 <body class="font-font2 bg-cwhite relative overflow-x-hidden">
@@ -17,11 +32,31 @@
                 <div class="logo font-font1 text-xl">ByaheOnTa</div>
                 <!-- Desktop Nav -->
                 <ul class="hidden md:flex justify-center items-center space-x-4 text-md">
-                    <li class="hover:text-lgreen ctransition hover:italic overflow-hidden py-2 leading-tight"><a class="nav-link" href="#" class="cursor-pointer">Top Spots</a></li>
-                    <li class="hover:text-lgreen ctransition hover:italic overflow-hidden py-2 leading-3"><a class="nav-link" href="#" class="cursor-pointer">Iterinary</a></li>
+                    <li class="hover:text-lgreen ctransition hover:italic overflow-hidden py-2 leading-tight"><a class="nav-link" href="#top-spots" class="cursor-pointer">Top Spots</a></li>
+                    <li class="hover:text-lgreen ctransition hover:italic overflow-hidden py-2 leading-3"><a class="nav-link" href="#" class="cursor-pointer">Itinerary</a></li>
                     <li class="hover:text-lgreen ctransition hover:italic overflow-hidden py-2 leading-3"><a class="nav-link" href="#" class="cursor-pointer">Map</a></li>
                     <li class="hover:text-lgreen ctransition hover:italic overflow-hidden py-2 leading-3"><a class="nav-link" href="#" class="cursor-pointer">About Us</a></li>
                 </ul>
+
+                <div class="profileImgContainer hidden md:flex overflow-hidden justify-center items-center flex-col">
+                    <!-- Profile Icon -->
+                    <div id="profileImg">
+
+                        <img src="hero_img/uruta.jpg" alt="profile" class="profile-icon w-12 h-12 rounded-full object-cover">
+
+                        <div id="options" style="display:none;" class="absolute top-24 right-6 w-[120px] h-[100px] bg-cwhite text-sdgreen items-center justify-center flex-col rounded-lg">
+                            <div class="arrow w-4 h-4 rotate-45 bg-cwhite absolute -top-2 right-6"></div>
+                            <ul class="p-2 text-lg w-full">
+                                <li class="border-b border-b-sdgreen mb-1 hover:text-lgreen ctransition hover:italic overflow-hidden py-2 leading-3"><a href="/byaheonta/public/profile.php">Profile</a></li>
+                                <li class="hover:text-lgreen ctransition hover:italic overflow-hidden py-2 leading-3"><button class="logout bg-sdgreen px-1 py-3 text-cwhite w-full rounded-md">Logout</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Login Button -->
+                    <div id="loginButton" class="hidden">
+                        <button class="login-btn bg-sdgreen text-cwhite px-6 py-2 rounded-full"><a href="/byaheonta/public/login.php">Login</a></button>
+                    </div>
+                </div>
 
                 <!-- Mobile Nav -->
                 <div class="burger md:hidden">
@@ -41,6 +76,7 @@
 
 
 
+
             <!-- Divider -->
             <div class="custom-shape-divider-bottom-1733039168">
                 <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -50,30 +86,210 @@
                 </svg>
             </div>
             <!-- Mobile Nav -->
-            <div class="mobile-nav ctransition -translate-x-full mobile-nav inset-0 w-screen h-screen bg-sdgreen fixed top-0 left-0 z-10000 flex justify-center items-center ctransition">
+            <div class="mobile-nav ctransition -translate-x-full mobile-nav inset-0 w-screen h-screen bg-sdgreen fixed top-0 left-0 z-10000 flex justify-center items-center ctransition md:hidden">
                 <div class="exit absolute top-4 right-8 text-cwhite">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                     </svg>
                 </div>
-                <ul class="flex justify-start text-left items-center space-y-8 font-font1 text-7xl flex-col text-cwhite">
-                    <li class="hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="#" class="cursor-pointer">Top Spots</a></li>
-                    <li class="hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="#" class="cursor-pointer">Iterinary</a></li>
+                <ul class="flex justify-start text-left items-center space-y-8 font-font1 text-6xl flex-col text-cwhite">
+                    <li class="hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="#top-spots" class="cursor-pointer">Top Spots</a></li>
+                    <li class="hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="#" class="cursor-pointer">Itinerary</a></li>
                     <li class="hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="#" class="cursor-pointer">Map</a></li>
                     <li class="hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="#" class="cursor-pointer">About Us</a></li>
+                    <li class="hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="/byaheonta/public/profile.php" class="cursor-pointer">Profile</a></li>
+                    <li class="logout hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="#" class="cursor-pointer">Logout</a></li>
                 </ul>
             </div>
         </div>
     </div>
 
-    <div class="top-spots h-screen">
-        <h2>Top Spots</h2>
+    <div id="top-spots" class="text-sdgreen mt-16 md:mt-28 z-99">
+        <div class="header-title text-center overflow-hidden">
+            <p class="font-font1 text-2xl md:text-4xl">Top Spots in Bislig</p>
+        </div>
+
+        <div class="spot-container py-[5%] px-[5%] md:px-[10%] mt-10 md:mt-20 flex justify-center">
+            <div class="spots flex justify-center items-center flex-col space-y-24 md:space-y-44">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section h-screen w-full bg-sdgreen">
+        test
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script src="https://unpkg.com/split-type"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.17/dist/lenis.min.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="./script.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            function getCookie(name) {
+                let cookieArr = document.cookie.split(';');
+                for (let cookie of cookieArr) {
+                    let [key, value] = cookie.trim().split('=');
+                    if (key === name) {
+                        return decodeURIComponent(value);
+                    }
+                }
+                return null;
+            }
+
+            let email = getCookie('email');
+
+
+            if (email) {
+                $('#profileImg').removeClass('hidden');
+                $('#options').removeClass('hidden');
+                $('#loginButton').addClass('hidden');
+
+                // Profile Iconcode($profile); ?>;
+                if(profile.profile){
+                    $(".profile-icon").attr('src', `../uploads/${profile.profile}`);
+                }
+                else{
+                    $(".profile-icon").attr('src', "hero_img/blank.jpg");
+                }
+            } else {
+                $('#profileImg').addClass('hidden');
+                $('#options').addClass('hidden');
+                $('#loginButton').removeClass('hidden');
+            }
+
+
+
+            $(".logout").on("click", function() {
+                $.ajax({
+                        url: "index.php",
+                        method: 'POST',
+                        data: {
+                            logout: true
+                        },
+                    })
+                    .done(function(html) {
+                        window.location.replace("http://localhost/byaheonta/public/login.php");
+                        deleteCookie('email');
+                    });
+            })
+
+            function deleteCookie(name) {
+                document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+            }
+
+            // top spots
+            let spots = [{
+                    "image": "tinuy-an.jpg",
+                    "title": "Tinuy-An Falls",
+                    "description": "A majestic waterfall surrounded by lush greenery."
+                },
+                {
+                    "image": "kawa-kawa.jpg",
+                    "title": "Kawa-Kawa Sa Awog",
+                    "description": "Is a hidden gem known for its enchanting natural pools shaped like giant 'kawa' (cauldrons)."
+                },
+                {
+                    "image": "hinayagan.jpg",
+                    "title": "Hinayagan Cave",
+                    "description": "A stunning natural wonder known for its illuminated mid-ceiling opening, underground river, and unique stalactites."
+                },
+                {
+                    "image": "lake77.jpg",
+                    "title": "Lake 77",
+                    "description": "A serene lake known for its stunning views and calm waters."
+                }
+            ]
+
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            let html = "";
+            spots.map((spot, index) => {
+                let right = ((index + 1) % 2 == 0) ? 'md:flex-row-reverse' : '';
+                let textRight = ((index + 1) % 2 == 0) ? 'md:text-right' : 'md:text-left';
+                html += `
+                    <div class="spot flex flex-col md:flex-row justify-center items-center ${right} w-full md:space-x-[2rem] md:space-x-reverse">
+
+                        <div class="spot-img">
+                            <div class="img-wrapper w-[400px] h-[400px] md:w-[500px] md:h-[600px] overflow-hidden">
+                                <img src="hero_img/${spot.image}" alt="${spot.title}" style="clip-path: inset(0 0 0 0);" class="overflow-clip w-full h-full object-cover">
+                            </div>
+                        </div>
+
+                        <div class="spot-text">
+                            <div class="text-wrapper w-[400px] md:w-[700px] md:h-[600px] flex justify-center items-center text-center flex-col md:px-10 space-y-4 mt-4">
+                                <div class="header-title text-left text-3xl md:text-6xl font-font1 overflow-hidden pb-2">
+                                    <p class="w-full">${spot.title}</p>
+                                </div>
+                                <div class="sub text-md md:text-xl mt-4 md:mt-8 px-4 overflow-hidden">
+                                    <p>${spot.description}</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                `
+            })
+
+            $(".spots").html(html);
+
+            // Top Spots
+            let spotsAnimation = document.querySelectorAll(".spot-img .img-wrapper img");
+            spotsAnimation.forEach((el => {
+                gsap.from(el, 2, {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top bottom",
+                        end: "bottom center",
+                        scrub: true,
+                    },
+                    clipPath: "inset(100% 0 0 0)",
+                    scale: 2,
+                    ease: "power2.inOut",
+                    y: 100,
+                })
+            }))
+
+            let headerAnimation = document.querySelectorAll(".header-title");
+            headerAnimation.forEach((el => {
+                let split = new SplitType(el);
+                gsap.from(split.chars, 1, {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top bottom",
+                        end: "bottom center",
+                        scrub: true,
+                    },
+                    y: 140,
+                    stagger: 0.02,
+                    ease: "power3.inOut",
+
+                })
+            }))
+
+            let subAnimation = document.querySelectorAll(".sub");
+            subAnimation.forEach((el => {
+                let split = new SplitType(el);
+                gsap.from(split.chars, 1, {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top bottom",
+                        end: "bottom center",
+                        scrub: true,
+                    },
+                    y: 140,
+                    stagger: 0.02,
+                    ease: "power3.inOut",
+
+                })
+            }))
+
+
+        })
+    </script>
 </body>
 
 </html>
