@@ -7,6 +7,10 @@
     color: var(--very-dark-green);
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .overlay {
   background-color: rgba(0, 0, 0, 0.7);
 }
@@ -57,7 +61,7 @@
       label {
         display: inline-block;
         margin: 15px 0;
-        color: #d4d4d4;
+        color: var(--light-green);
         cursor: pointer;
         font-size: 50px;
         transition: color 0.2s;

@@ -25,7 +25,9 @@ module.exports = {
             "sdgreen": "#1C2628",
             "dgreen" : "#103713",
             "lgreen" : "#628B35",
+            "vlgreen" : "#c1f588",
             "cwhite" : "#FFFDF5",
+            "cblack" : "#070707",
         }
     },
   },

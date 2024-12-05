@@ -31,6 +31,8 @@ if(isset($_POST["review-comment"])){
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./custom.css">
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.17/dist/lenis.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
 </head>
 
 <body class="font-font2 bg-cwhite relative overflow-x-hidden">
@@ -42,9 +44,8 @@ if(isset($_POST["review-comment"])){
                 <!-- Desktop Nav -->
                 <ul class="hidden md:flex justify-center items-center space-x-4 text-md">
                     <li class="hover:text-lgreen ctransition hover:italic overflow-hidden py-2 leading-tight"><a class="nav-link" href="#top-spots" class="cursor-pointer">Top Spots</a></li>
-                    <li class="hover:text-lgreen ctransition hover:italic overflow-hidden py-2 leading-3"><a class="nav-link" href="#" class="cursor-pointer">Itinerary</a></li>
-                    <li class="hover:text-lgreen ctransition hover:italic overflow-hidden py-2 leading-3"><a class="nav-link" href="#" class="cursor-pointer">Map</a></li>
-                    <li class="hover:text-lgreen ctransition hover:italic overflow-hidden py-2 leading-3"><a class="nav-link" href="#" class="cursor-pointer">About Us</a></li>
+                    <li class="hover:text-lgreen ctransition hover:italic overflow-hidden py-2 leading-3"><a class="nav-link" href="map.php" class="cursor-pointer">Map</a></li>
+                    <li class="hover:text-lgreen ctransition hover:italic overflow-hidden py-2 leading-3"><a class="nav-link" href="about.php" class="cursor-pointer">About Us</a></li>
                 </ul>
 
                 <div class="profileImgContainer hidden md:flex overflow-hidden justify-center items-center flex-col">
@@ -103,11 +104,11 @@ if(isset($_POST["review-comment"])){
                 </div>
                 <ul class="flex justify-start text-left items-center space-y-8 font-font1 text-6xl flex-col text-cwhite">
                     <li class="hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="#top-spots" class="cursor-pointer">Top Spots</a></li>
-                    <li class="hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="#" class="cursor-pointer">Itinerary</a></li>
-                    <li class="hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="#" class="cursor-pointer">Map</a></li>
-                    <li class="hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="#" class="cursor-pointer">About Us</a></li>
-                    <li class="hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="/byaheonta/public/profile.php" class="cursor-pointer">Profile</a></li>
-                    <li class="logout hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="#" class="cursor-pointer">Logout</a></li>
+                    <li class="hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="map.php" class="cursor-pointer">Map</a></li>
+                    <li class="hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="about.php" class="cursor-pointer">About Us</a></li>
+                    <li class="profile-link hidden hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="profile.php" class="cursor-pointer">Profile</a></li>
+                    <li class="logout hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="#" class="cursor-pointer hidden">Logout</a></li>
+                    <li class="login hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="login.php" class="cursor-pointer hidden">Login</a></li>
                 </ul>
             </div>
         </div>
@@ -133,11 +134,10 @@ if(isset($_POST["review-comment"])){
 
         <div class="slider md:h-[200px] h-[150px] mt-24 px-4 flex overflow-hidden" style="mask-image: linear-gradient(to right, transparent, #1C2628 10% 90%, transparent);">
             <div class="list flex relative gap-10 animate-loop-scroll">
-
             </div>
         </div>
 
-        <div class="review-form w-[80%] grid grid-cols-2 grid-rows-2 mx-auto my-32">
+        <div class="review-form w-[80%] grid grid-cols-2 grid-rows-2 mx-auto my-20 md:my-32">
             <div class="hero-text col-span-2 row-span-1 md:row-span-2 md:col-span-1 w-full h-full flex justify-center flex-col items-center text-center md:text-left">
                 <div class="overflow-hidden py-2">
                     <p class="review-hero-text font-font1 text-6xl md:text-7xl">Let us know</p>
@@ -146,7 +146,7 @@ if(isset($_POST["review-comment"])){
                     <p class="review-hero-text font-font1 text-6xl md:text-7xl">your thoughts.</p>
                 </div>
             </div>
-            <form class="col-span-2 row-span-1 md:row-span-2 md:col-span-1 w-full h-full flex justify-center  items-center flex-col">
+            <div class="col-span-2 row-span-1 md:row-span-2 md:col-span-1 w-full h-full flex justify-center  items-center flex-col">
                     <p>Commenting as <span class="review-email text-lgreen"></span></p>
 
                     <div class="rating-box">
@@ -163,18 +163,36 @@ if(isset($_POST["review-comment"])){
                         </div>
                     </div>
 
-                <textarea name="review-comment" class="comment border border-lgreen resize-none w-[400px] md:w-[500px] h-[200px] bg-transparent text-cwhite p-4 rounded-lg outline-none"></textarea>
-                <input type="submit" id="review-submit" value="Submit" name="submit" class="px-8 py-2 bg-lgreen rounded-full mt-4 border border-lgreen hover:bg-transparent ctransition" >
-            </form>
+                <textarea class="comment border border-lgreen resize-none w-[400px] md:w-[500px] h-[200px] bg-transparent text-cwhite p-4 rounded-lg outline-none"></textarea>
+                <button id="review-submit"class="px-8 py-2 bg-lgreen rounded-full mt-4 border border-lgreen hover:bg-transparent ctransition" >Submit</button>
+            </div>
         </div>
     </div>
-    <div class="test h-screen w-full bg-lgreen"></div>
+    <div class="footer w-full bg-cblack text-cwhite text-center py-16">
+        <div class="logo font-font1 text-3xl md:text-4xl overflow-hidden py-2">
+            <p class="footer-logo">ByaheOnTa</p>
+        </div>
+        <div>
+            <ul class="socials flex items-center justify-center space-x-6 mt-6">
+                <li><i class="fa-brands fa-facebook md:text-2xl"></i></li>
+                <li><i class="fa-brands fa-instagram md:text-2xl"></i></li>
+                <li><i class="fa-brands fa-twitter md:text-2xl"></i></li>
+            </ul>
+        </div>
+        <div class="footer-line px-6 mt-8">
+            <hr class="border-cwhite px-2">
+        </div>
+        <div class="copy mt-8">
+            <p>&copy; 2024 ByaheOnTa <span class="hidden">x uruta</span>. All rights reserved.</p>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.17/dist/lenis.min.js"></script>
     <script src="https://unpkg.com/split-type"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.js"></script>
     <script src="./script.js"></script>
     <script>
         $(document).ready(function() {
@@ -197,6 +215,9 @@ if(isset($_POST["review-comment"])){
                 $('#profileImg').removeClass('hidden');
                 $('#options').removeClass('hidden');
                 $('#loginButton').addClass('hidden');
+                $(".logout").removeClass('hidden');
+                $(".login").addClass('hidden');
+                $(".profile-link").removeClass('hidden');
 
                 // Profile Icon
                 let profile = <?php echo json_encode($profile); ?>;
@@ -210,6 +231,9 @@ if(isset($_POST["review-comment"])){
                 $('#profileImg').addClass('hidden');
                 $('#options').addClass('hidden');
                 $('#loginButton').removeClass('hidden');
+                $(".logout").addClass('hidden');
+                $(".login").removeClass('hidden');
+                $(".profile-link").addClass('hidden');
             }
 
 
@@ -351,6 +375,17 @@ if(isset($_POST["review-comment"])){
                         },
                         success: function(res) {
                             let profile = res ? `../uploads/${res}` : "hero_img/blank.jpg";
+                            let stars = "";
+
+                            for(let i = 1; i <= 5; i++){
+                                if(i <= review.rating){
+                                    stars += "<span class='text-lgreen'>&#9733;</span>";
+                                }
+                                else{
+                                    stars += "<span class='text-gray-400'>&#9733;</span>";
+                                }
+                            }
+
                             reviews_html += `
                     <div class="item grid grid-cols-3 h-[150px] md:h-[200px] md:w-[450px] w-[350px] bg-cwhite rounded-lg p-4 relative overflow-hidden flex-shrink-0">
                         <div class="watermark absolute -bottom-10 right-0 w-[200px] z-1">
@@ -365,6 +400,7 @@ if(isset($_POST["review-comment"])){
                         </div>
                         <div class="review_text col-span-2 text-sdgreen px-4 py-4 md:py-8 z-10">
                             <p class="font-bold font-sm">${review.email}</p>
+                            <div class="stars flex">${ stars }</div>
                             <p class="mt-2">"${review.comment}"</p>
                         </div>
                     </div>
@@ -421,12 +457,12 @@ if(isset($_POST["review-comment"])){
             $(".rating").each(function () {
                 $(this).on("change", function () {
                     reviewValue = $(this).val();
+                    console.log(typeof(reviewValue));
                 });
             });
 
-
-            $("#review-submit").on("click", function (e){
-                if(!email){
+            $("#review-submit").on("click", function(){
+                if(email == null){
                     window.location.replace("http://localhost/byaheonta/public/login.php");
                 }
 
@@ -438,17 +474,79 @@ if(isset($_POST["review-comment"])){
                         rating : reviewValue,
                         message : $(".comment").val()
                     },
-                    dataType: "html"
+                    dataType: "json"
                 });
 
-                request.done(function( msg ) {
-                    alert(msg);
+                request.done(function(res) {
+                    if(res.status === "success"){
+                        Toastify({
+                            text: res.message,
+                            className: "info",
+                            style: {
+                                background: "#628B35",
+                            },
+                            gravity: "top",
+                            position: "center"
+                        }).showToast();
+                    }
+                    else{
+                        Toastify({
+                            text: res.message,
+                            className: "info",
+                            style: {
+                                background: "red",
+                            },
+                            gravity: "top",
+                            position: "center"
+                        }).showToast();
+                    }
                 });
 
                 request.fail(function( jqXHR, textStatus ) {
                 alert( "Request failed: " + textStatus );
                 });
 
+            })
+
+            // footer
+
+            gsap.from(".socials li", 2, {
+                scrollTrigger: {
+                    trigger: ".footer",
+                    start: "top bottom",
+                    end: "top 60%",
+                    scrub: true,
+                },
+                y: 100,
+                stagger: 0.05,
+                opacity: 0,
+                ease: "power3"
+            })
+
+            gsap.from(".footer-line, .copy", 2, {
+                scrollTrigger: {
+                    trigger: ".footer",
+                    start: "top bottom",
+                    end: "top 60%",
+                    scrub: true,
+                },
+                y: 100,
+                opacity: 0,
+                ease: "power3"
+            })
+
+            let footerSplit = new SplitType(".footer-logo");
+            gsap.from(footerSplit.chars, 2, {
+                scrollTrigger: {
+                    trigger: ".footer",
+                    start: "top bottom",
+                    end: "top 55%",
+                    scrub: true,
+                },
+                y: 100,
+                stagger: 0.05,
+                opacity: 0,
+                ease: "power3"
             })
         })
     </script>
