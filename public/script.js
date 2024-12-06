@@ -23,6 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let profile = document.querySelector("#profileImg");
   let options = document.querySelector("#options");
   let slider = document.querySelector(".slider");
+  let mNavLink = document.querySelectorAll(".mobile-nav-link a");
+
 
   gsap.registerPlugin(ScrollTrigger);
 

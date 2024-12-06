@@ -1,6 +1,9 @@
 <?php
-    include "./config.php";
-    session_start();
+include "./config.php";
+session_start();
+
+$email = $_COOKIE["email"];
+$itineraries = $conn->query("SELECT * FROM itinerary WHERE email = '$email'")->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +43,36 @@
                 </d>
             </div>
 
-            <div class="col-span-2 md:col-span-1 row-span-1 md:row-span-2 w-full h-full">halo
+            <div class="col-span-2 md:col-span-1 row-span-1 md:row-span-2 w-full h-full">
+                <div class="itinerary__header overflow-hidden py-2">
+                    <p class="font-font1 text-4xl md:text-5xl">My Itinerary</p>
+                </div>
+                <table class="w-full mt-8">
+                    <thead>
+                        <tr class="text-left">
+                            <th>Date</th>
+                            <th>From</th>
+                            <th>To</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="mt-8">
+                        <?php
+
+                        foreach($itineraries as $itinerary){
+                            echo "
+                                       <tr class='mt-4'>
+                                            <td>".$itinerary["date"]."</td>
+                                            <td>".$itinerary["from_location"]."</td>
+                                            <td>".$itinerary["to_location"]."</td>
+                                        </tr>
+
+                                ";
+                        }
+
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -55,6 +87,7 @@
 
             let tl = gsap.timeline();
             let name = new SplitType($(".name"));
+            let i__header = new SplitType($(".itinerary__header p"));
 
             tl.from($(".cover img"), 2, {
                     clipPath: "inset(0 100% 0 0)",
@@ -79,6 +112,17 @@
                     y: 140,
                     stagger: 0.02,
                     ease: "power3.inOut",
+                }, "-=0.5")
+                .from($(i__header.chars), 1, {
+                    y: 140,
+                    stagger: 0.02,
+                    ease: "power3.inOut",
+                }, "-=0.5")
+                .from($("table"), 1, {
+                    y: 140,
+                    stagger: 0.02,
+                    ease: "power3.inOut",
+                    opacity: 0
                 }, "-=0.5")
 
             $(".editBtn").on("click", function() {
@@ -134,10 +178,10 @@
 
             function setProfile() {
                 $.ajax({
-                    url: "getProfile.php",
-                    method: "GET",
-                })
-                    .done(function (response) {
+                        url: "getProfile.php",
+                        method: "GET",
+                    })
+                    .done(function(response) {
                         let res = JSON.parse(response);
                         console.log(res);
 
@@ -146,10 +190,9 @@
                             let fullName = `${profileData.first_name} ${profileData.last_name}`;
 
                             // Update the profile picture
-                            if(profileData.profile_picture){
+                            if (profileData.profile_picture) {
                                 $(".profile-picture").attr("src", `../uploads/${profileData.profile_picture}`);
-                            }
-                            else{
+                            } else {
                                 $(".profile-picture").attr("src", "hero_img/blank.jpg");
                             }
 
@@ -167,7 +210,7 @@
                             console.error("Error fetching profile:", res.message);
                         }
                     })
-                    .fail(function (xhr, status, error) {
+                    .fail(function(xhr, status, error) {
                         console.error("AJAX Error:", error);
                     });
             }

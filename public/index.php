@@ -12,7 +12,7 @@ if (isset($_POST['logout'])) {
     session_destroy();
 }
 
-if(isset($_POST["review-comment"])){
+if (isset($_POST["review-comment"])) {
     $message = $_POST["review-comment"];
     $rating = $_POST["rating"];
     $timestamp = date("Y-m-d h:i:sa");
@@ -82,7 +82,7 @@ if(isset($_POST["review-comment"])){
             <div class="overflow-hidden py-2">
                 <p id="heroSub" class="font-light text-md md:text-2xl text-cwhite mt-2 md:mt-4">Your ultimate guide to exploring the beauty of Bislig</p>
             </div>
-            <button id="visitBtn" class="border border-lgreen hover:bg-transparent ctransition bg-lgreen rounded-full px-6 py-2 md:px-8 md:py-4 mt-4 md:mt-16 text-cwhite">Visit Now</button>
+            <button id="visitBtn" class="border border-lgreen hover:bg-transparent ctransition bg-lgreen rounded-full px-6 py-2 md:px-8 md:py-4 mt-4 md:mt-16 text-cwhite"><a href="map.php">Visit Now</a></button>
 
 
 
@@ -114,7 +114,7 @@ if(isset($_POST["review-comment"])){
         </div>
     </div>
 
-    <div id="top-spots" class="text-sdgreen mt-16 md:mt-28 z-99">
+    <div id="top-spots" class="text-sdgreen mt-16 md:mt-28 z-0">
         <div class="header-title text-center overflow-hidden">
             <p class="font-font1 text-2xl md:text-4xl">Top Spots in Bislig</p>
         </div>
@@ -147,24 +147,24 @@ if(isset($_POST["review-comment"])){
                 </div>
             </div>
             <div class="col-span-2 row-span-1 md:row-span-2 md:col-span-1 w-full h-full flex justify-center  items-center flex-col">
-                    <p>Commenting as <span class="review-email text-lgreen"></span></p>
+                <p>Commenting as <span class="review-email text-lgreen"></span></p>
 
-                    <div class="rating-box">
-                        <div class="rating-container">
-                            <input type="radio" class="rating" name="rating" value="5" id="star-5"> <label for="star-5">&#9733;</label>
+                <div class="rating-box">
+                    <div class="rating-container">
+                        <input type="radio" class="rating" name="rating" value="5" id="star-5"> <label for="star-5">&#9733;</label>
 
-                            <input type="radio" class="rating" name="rating" value="4" id="star-4"> <label for="star-4">&#9733;</label>
+                        <input type="radio" class="rating" name="rating" value="4" id="star-4"> <label for="star-4">&#9733;</label>
 
-                            <input type="radio" class="rating" name="rating" value="3" id="star-3"> <label for="star-3">&#9733;</label>
+                        <input type="radio" class="rating" name="rating" value="3" id="star-3"> <label for="star-3">&#9733;</label>
 
-                            <input type="radio" class="rating" name="rating" value="2" id="star-2"> <label for="star-2">&#9733;</label>
+                        <input type="radio" class="rating" name="rating" value="2" id="star-2"> <label for="star-2">&#9733;</label>
 
-                            <input type="radio" class="rating" name="rating" value="1" id="star-1"> <label for="star-1">&#9733;</label>
-                        </div>
+                        <input type="radio" class="rating" name="rating" value="1" id="star-1"> <label for="star-1">&#9733;</label>
                     </div>
+                </div>
 
                 <textarea class="comment border border-lgreen resize-none w-[400px] md:w-[500px] h-[200px] bg-transparent text-cwhite p-4 rounded-lg outline-none"></textarea>
-                <button id="review-submit"class="px-8 py-2 bg-lgreen rounded-full mt-4 border border-lgreen hover:bg-transparent ctransition" >Submit</button>
+                <button id="review-submit" class="px-8 py-2 bg-lgreen rounded-full mt-4 border border-lgreen hover:bg-transparent ctransition">Submit</button>
             </div>
         </div>
     </div>
@@ -235,7 +235,6 @@ if(isset($_POST["review-comment"])){
                 $(".login").removeClass('hidden');
                 $(".profile-link").addClass('hidden');
             }
-
 
 
             $(".logout").on("click", function() {
@@ -377,11 +376,10 @@ if(isset($_POST["review-comment"])){
                             let profile = res ? `../uploads/${res}` : "hero_img/blank.jpg";
                             let stars = "";
 
-                            for(let i = 1; i <= 5; i++){
-                                if(i <= review.rating){
+                            for (let i = 1; i <= 5; i++) {
+                                if (i <= review.rating) {
                                     stars += "<span class='text-lgreen'>&#9733;</span>";
-                                }
-                                else{
+                                } else {
                                     stars += "<span class='text-gray-400'>&#9733;</span>";
                                 }
                             }
@@ -435,7 +433,7 @@ if(isset($_POST["review-comment"])){
                 ease: "power3.inOut",
             })
 
-            $(".review-hero-text").each(function(){
+            $(".review-hero-text").each(function() {
                 let review_hero_split = new SplitType($(this));
                 gsap.from(review_hero_split.chars, 1, {
                     scrollTrigger: {
@@ -454,15 +452,15 @@ if(isset($_POST["review-comment"])){
             // star
             let reviewValue = 0;
 
-            $(".rating").each(function () {
-                $(this).on("change", function () {
+            $(".rating").each(function() {
+                $(this).on("change", function() {
                     reviewValue = $(this).val();
                     console.log(typeof(reviewValue));
                 });
             });
 
-            $("#review-submit").on("click", function(){
-                if(email == null){
+            $("#review-submit").on("click", function() {
+                if (email == null) {
                     window.location.replace("http://localhost/byaheonta/public/login.php");
                 }
 
@@ -470,15 +468,15 @@ if(isset($_POST["review-comment"])){
                     url: "review.php",
                     method: "POST",
                     data: {
-                        email : email,
-                        rating : reviewValue,
-                        message : $(".comment").val()
+                        email: email,
+                        rating: reviewValue,
+                        message: $(".comment").val()
                     },
                     dataType: "json"
                 });
 
                 request.done(function(res) {
-                    if(res.status === "success"){
+                    if (res.status === "success") {
                         Toastify({
                             text: res.message,
                             className: "info",
@@ -488,8 +486,7 @@ if(isset($_POST["review-comment"])){
                             gravity: "top",
                             position: "center"
                         }).showToast();
-                    }
-                    else{
+                    } else {
                         Toastify({
                             text: res.message,
                             className: "info",
@@ -502,8 +499,8 @@ if(isset($_POST["review-comment"])){
                     }
                 });
 
-                request.fail(function( jqXHR, textStatus ) {
-                alert( "Request failed: " + textStatus );
+                request.fail(function(jqXHR, textStatus) {
+                    alert("Request failed: " + textStatus);
                 });
 
             })
