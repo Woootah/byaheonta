@@ -27,7 +27,7 @@ if (isset($_POST["review-comment"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ByaheOnTa</title>
+    <title>BiyaheOnTa</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./custom.css">
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.17/dist/lenis.css">
@@ -40,7 +40,7 @@ if (isset($_POST["review-comment"])) {
         <div class="overlay h-full w-full absolute top-0 left-0 flex justify-center items-center flex-col">
 
             <nav class="text-cwhite flex justify-between items-center absolute top-0 left-0 w-full p-8">
-                <div class="logo font-font1 text-xl">ByaheOnTa</div>
+                <div class="logo font-font1 text-xl">BiyaheOnTa</div>
                 <!-- Desktop Nav -->
                 <ul class="hidden md:flex justify-center items-center space-x-4 text-md">
                     <li class="hover:text-lgreen ctransition hover:italic overflow-hidden py-2 leading-tight"><a class="nav-link" href="#top-spots" class="cursor-pointer">Top Spots</a></li>
@@ -77,7 +77,7 @@ if (isset($_POST["review-comment"])) {
             </nav>
 
             <div class="overflow-hidden py-2">
-                <h1 id="heroHeader" class="text-4xl md:text-7xl font-font1 text-cwhite">Welcome To Byaheonta</h1>
+                <h1 id="heroHeader" class="text-4xl md:text-7xl font-font1 text-cwhite">Welcome To Biyaheonta</h1>
             </div>
             <div class="overflow-hidden py-2">
                 <p id="heroSub" class="font-light text-md md:text-2xl text-cwhite mt-2 md:mt-4">Your ultimate guide to exploring the beauty of Bislig</p>
@@ -96,14 +96,14 @@ if (isset($_POST["review-comment"])) {
                 </svg>
             </div>
             <!-- Mobile Nav -->
-            <div class="mobile-nav ctransition -translate-x-full mobile-nav inset-0 w-screen h-screen bg-sdgreen fixed top-0 left-0 z-10000 flex justify-center items-center ctransition md:hidden">
+            <div class="mobile-nav ctransition -translate-x-full mobile-nav inset-0 w-screen h-screen bg-sdgreen fixed top-0 left-0 z-10 flex justify-center items-center ctransition md:hidden">
                 <div class="exit absolute top-4 right-8 text-cwhite">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                     </svg>
                 </div>
                 <ul class="flex justify-start text-left items-center space-y-8 font-font1 text-6xl flex-col text-cwhite">
-                    <li class="hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="#top-spots" class="cursor-pointer">Top Spots</a></li>
+                    <li class="hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="index.php#top-spots" class="cursor-pointer">Top Spots</a></li>
                     <li class="hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="map.php" class="cursor-pointer">Map</a></li>
                     <li class="hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="about.php" class="cursor-pointer">About Us</a></li>
                     <li class="profile-link hidden hover:text-cwhite ctransition hover:underline hover:italic overflow-hidden py-2 ctransition"><a class="mobile-nav-link" href="profile.php" class="cursor-pointer">Profile</a></li>
@@ -170,7 +170,7 @@ if (isset($_POST["review-comment"])) {
     </div>
     <div class="footer w-full bg-cblack text-cwhite text-center py-16">
         <div class="logo font-font1 text-3xl md:text-4xl overflow-hidden py-2">
-            <p class="footer-logo">ByaheOnTa</p>
+            <p class="footer-logo">BiyaheOnTa</p>
         </div>
         <div>
             <ul class="socials flex items-center justify-center space-x-6 mt-6">
@@ -183,7 +183,7 @@ if (isset($_POST["review-comment"])) {
             <hr class="border-cwhite px-2">
         </div>
         <div class="copy mt-8">
-            <p>&copy; 2024 ByaheOnTa <span class="hidden">x uruta</span>. All rights reserved.</p>
+            <p>&copy; 2024 BiyaheOnTa <span class="hidden">x uruta</span>. All rights reserved.</p>
         </div>
     </div>
 

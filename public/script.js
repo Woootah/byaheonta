@@ -23,7 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let profile = document.querySelector("#profileImg");
   let options = document.querySelector("#options");
   let slider = document.querySelector(".slider");
-  let mNavLink = document.querySelectorAll(".mobile-nav-link a");
+  let mNavLink = document.querySelectorAll(".mobile-nav-link");
+
 
 
   gsap.registerPlugin(ScrollTrigger);
@@ -94,6 +95,14 @@ document.addEventListener("DOMContentLoaded", function () {
     mobileNav.classList.add("-translate-x-full");
     document.body.style.overflow = "auto";
   });
+
+  mNavLink.forEach((el) => {
+    el.addEventListener("click", function(){
+        mobileNav.classList.remove("translate-x-0");
+        mobileNav.classList.add("-translate-x-full");
+        document.body.style.overflow = "auto";
+    })
+  })
 
   profile.addEventListener("click", () => {
     if (options.style.display === "none" || options.style.display === "") {

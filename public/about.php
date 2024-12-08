@@ -145,7 +145,7 @@ session_start();
     <!-- footer -->
     <div class="footer w-full bg-cblack text-cwhite text-center py-16">
         <div class="logo font-font1 text-3xl md:text-4xl overflow-hidden py-2">
-            <p class="footer-logo">ByaheOnTa</p>
+            <p class="footer-logo">BiyaheOnTa</p>
         </div>
         <div>
             <ul class="socials flex items-center justify-center space-x-6 mt-6">
@@ -158,7 +158,7 @@ session_start();
             <hr class="border-cwhite px-2">
         </div>
         <div class="copy mt-8">
-            <p>&copy; 2024 ByaheOnTa <span class="hidden">x uruta</span>. All rights reserved.</p>
+            <p>&copy; 2024 BiyaheOnTa <span class="hidden">x uruta</span>. All rights reserved.</p>
         </div>
     </div>
 

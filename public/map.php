@@ -11,6 +11,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ByaheOnTa | Map</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="custom.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
@@ -66,7 +67,7 @@ session_start();
             <div class="line border border-grey-300 mt-4"></div>
             <div class="recommendations__wrapper mt-4">
                 <p>Recommended Restaurants: </p>
-                <div class="recommendations h-[200px] md:h-full overflow-y-auto mt-4">
+                <div class="recommendations h-[200px] md:h-[450px] overflow-y-auto mt-4">
                     <!-- Dynamic Content -->
                 </div>
             </div>
@@ -177,13 +178,15 @@ session_start();
                     name: "Hotspring Resort",
                     image: "hotspring.jpg",
                     coords: [8.179134269791465, 126.32065481996821],
-                    description: "A popular swimming pool resort in Bislig City that offers a relaxing environment with warm, soothing waters."
+                    description: "A popular swimming pool resort in Bislig City that offers a relaxing environment with warm, soothing waters.",
+                    restaurants: []
                 },
                 {
                     name: "Hinayagan Cave",
                     image: "hinayagan.jpg",
                     coords: [8.298080704624635, 126.31792982301592],
-                    description: "A natural cave known for its stunning light displays and serene atmosphere."
+                    description: "A natural cave known for its stunning light displays and serene atmosphere.",
+                    restaurants: []
                 },
                 {
                     name: "Lake 77",
@@ -200,7 +203,8 @@ session_start();
                     name: "Pier Uno",
                     image: "pier.jpg",
                     coords: [8.196688367370676, 126.36711725911692],
-                    description: "A scenic pier offering coastal views and a spot to enjoy sunsets."
+                    description: "A scenic pier offering coastal views and a spot to enjoy sunsets.",
+                    restaurants: []
                 },
                 {
                     name: "Ocean View Park",
@@ -217,7 +221,8 @@ session_start();
                     name: "Lubas Naked Island",
                     image: "lubas.jpg",
                     coords: [8.671736457783052, 126.19495315121569],
-                    description: "A small, uninhabited island known for its white sand beaches and clear waters, perfect for swimming and relaxation."
+                    description: "A small, uninhabited island known for its white sand beaches and clear waters, perfect for swimming and relaxation.",
+                    restaurants: []
                 },
                 {
                     name: "Bislig City Baywalk",
@@ -256,7 +261,75 @@ session_start();
                     name: "Delot Cave",
                     image: "delot.jpg",
                     coords: [8.252618916311611, 126.28660145006124],
-                    description: "A limestone cave in Bislig City, known for its stunning rock formations and natural beauty, making it a popular spot for caving and exploration."
+                    description: "A limestone cave in Bislig City, known for its stunning rock formations and natural beauty, making it a popular spot for caving and exploration.",
+                    restaurants: []
+                },
+                {
+                    name: "Sian Falls",
+                    image: "sian.jpg",
+                    coords: [8.250541876510145, 126.29532515054677],
+                    description: "A serene and hidden gem in Bislig, Sian Falls features cascading waters surrounded by lush greenery, offering a tranquil retreat for nature lovers.",
+                    restaurants: []
+                },
+                {
+                    name: "Kawa-kawa sa Awog",
+                    image: "kawakawa.jpg",
+                    coords: [8.135824925601618, 126.30044780952225],
+                    description: "A unique natural attraction in Bislig, Kawa-Kawa sa Awog features rock formations resembling giant cooking pots, surrounded by clear waters and lush vegetation, perfect for a peaceful escape.",
+                    restaurants: []
+                },
+                {
+                    name: "Prince Town Bislig",
+                    image: "prince.jpg",
+                    coords: [8.186812827645163, 126.35241954599113],
+                    description: "A vibrant commercial hub in Bislig City, Prince Town offers a variety of shopping options, making it a favorite spot for locals and tourists alike.",
+                    restaurants: [
+                        {
+                            name: "Rooftop Cafe",
+                            description: "A cozy rooftop cafe offering stunning views of Bislig Bay.",
+                            rating: 5
+                        },
+                        {
+                            name: "Jollibee Bislig",
+                            description: "A popular fast-food chain in Bislig City, Jollibee offers a family-friendly atmosphere and serves Filipino favorites.",
+                            rating: 5
+                        },
+                        {
+                            name: "Whammy Burger",
+                            description: "A local favorite in Bislig City, Whammy's Burger is known for its delicious and generously sized burgers, offering a variety of flavors and toppings perfect for burger lovers seeking a hearty meal.",
+                            rating: 5
+                        },
+
+                    ]
+                },
+                {
+                    name: "Gaisano Capital Bislig",
+                    image: "gaisano.jpg",
+                    coords: [8.184888548124073, 126.35356441595587],
+                    description: "A popular shopping destination in Bislig City, Gaisano Capital offers a variety of retail stores, groceries, and dining options, making it a convenient one-stop shop for locals and tourists alike.",
+                    restaurants: [
+                        {
+                            name: "Food in a Box",
+                            description: "A cozy spot offering affordable and delicious meals served in convenient, takeaway-friendly packaging, perfect for quick bites and casual dining.",
+                            rating: 5
+                        },
+                        {
+                            name: "The Aperó",
+                            description: "A chic cafe and restaurant in Bislig City, known for its relaxing ambiance and a menu featuring a mix of local and international dishes, ideal for casual meetups and special occasions.",
+                            rating: 5
+                        },
+                        {
+                            name: "Jollibee Bislig",
+                            description: "A popular fast-food chain in Bislig City, Jollibee offers a family-friendly atmosphere and serves Filipino favorites.",
+                            rating: 5
+                        },
+                        {
+                            name: "Whammy Burger",
+                            description: "A local favorite in Bislig City, Whammy's Burger is known for its delicious and generously sized burgers, offering a variety of flavors and toppings perfect for burger lovers seeking a hearty meal.",
+                            rating: 5
+                        },
+
+                    ]
                 },
             ];
 
